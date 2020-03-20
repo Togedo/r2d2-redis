@@ -107,7 +107,7 @@ impl r2d2::ManageConnection for RedisConnectionManager {
 
     fn connect(&self) -> Result<redis::Connection, Error> {
         match redis::Client::open(self.connection_info.clone()) {
-            Ok(client) => client.get_connection().map_err(Error::Other),
+            Ok(client) => client.get_async_connection().map_err(Error::Other),
             Err(err) => Err(Error::Other(err)),
         }
     }
